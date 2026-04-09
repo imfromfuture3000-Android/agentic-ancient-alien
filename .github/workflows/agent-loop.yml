@@ -1,0 +1,30 @@
+name: Agent Loop
+
+on:
+  schedule:
+    - cron: '0 */6 * * *'
+  workflow_dispatch:
+
+jobs:
+  agent-loop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Dependencies
+        run: yarn install
+      - name: Run Agent Researcher
+        run: npx ts-node scripts/agent-researcher.ts
+        env:
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+          OPENAI_API_KEY: ${{ secrets.OPENAI_API_KEY }}
+      - name: Commit Reports
+        run: |
+          git config --local user.email "cryptonoutgene@users.noreply.github.com"
+          git config --local user.name "CryptonoutGene"
+          git add agent-reports/
+          git commit -m "Auto-commit: Agent researcher findings" || echo "No changes to commit"
+          git push

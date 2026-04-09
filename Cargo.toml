@@ -1,0 +1,12 @@
+[workspace]
+resolver = "2"
+
+[profile.release]
+overflow-checks = true
+lto = "fat"
+codegen-units = 1
+
+
+[patch.crates-io]
+anchor-lang = { git = "https://github.com/coral-xyz/anchor", rev = "a943729" }
+anchor-spl = { git = "https://github.com/coral-xyz/anchor", rev = "a943729" }

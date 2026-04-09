@@ -1,0 +1,33 @@
+name: Contract Scanner
+
+on:
+  schedule:
+    - cron: '0 0 * * *'
+  workflow_dispatch:
+
+jobs:
+  contract-scanner:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Setup Node.js
+        uses: actions/setup-node@v3
+        with:
+          node-version: '18'
+      - name: Install Dependencies
+        run: yarn install
+      - name: Scan Programs
+        run: npx ts-node scripts/scan-programs.ts
+        env:
+          SOLANA_RPC_URL: ${{ secrets.SOLANA_RPC_URL }}
+      - name: Check Multisig
+        run: npx ts-node scripts/multisig-checker.ts
+      - name: Map PDAs
+        run: npx ts-node scripts/pda-mapper.ts
+      - name: Commit Reports
+        run: |
+          git config --local user.email "cryptonoutgene@users.noreply.github.com"
+          git config --local user.name "CryptonoutGene"
+          git add scan-reports/
+          git commit -m "Auto-commit: Contract scan results" || echo "No changes to commit"
+          git push
