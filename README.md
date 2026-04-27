@@ -100,6 +100,16 @@ An AI-powered research agent that scans for new prediction market trends and ana
 - `agent-reports/.gitkeep`: Ensures the `agent-reports` directory is tracked by Git, even when empty.
 - `scan-reports/.gitkeep`: Ensures the `scan-reports` directory is tracked by Git, even when empty.
 
+## Quick Start
+
+For a fully automated setup, run:
+
+```bash
+make setup
+```
+
+This will install all prerequisites, build the contracts, and run the initial scanners. For detailed information on the automation architecture, see [AUTOMATION_SETUP.md](./AUTOMATION_SETUP.md).
+
 ## Getting Started
 
 To set up the project locally, clone the repository and install the dependencies:
@@ -107,7 +117,7 @@ To set up the project locally, clone the repository and install the dependencies
 ```bash
 git clone https://github.com/imfromfuture3000-Android/agentic-ancient-alien.git
 cd agentic-ancient-alien
-yarn install
+npm install
 anchor build
 ```
 
