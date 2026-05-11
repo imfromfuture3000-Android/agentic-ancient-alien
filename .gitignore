@@ -1,0 +1,30 @@
+node_modules
+dist
+target
+.DS_Store
+
+# Environment secrets
+.env
+.env.*
+!.env.example
+
+# Solana keypairs — NEVER commit private keys
+*.json.bak
+controller.json
+*-keypair.json
+id.json
+
+# Deployment artifacts (contain sensitive info)
+deployment-info.json
+
+# IDE
+.vscode/
+.idea/
+*.swp
+
+# Logs
+*.log
+test-ledger/
+
+# Build
+.anchor/
